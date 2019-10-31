@@ -30,3 +30,14 @@ jobs:
         name: "Release with heroku"
         command: |
           heroku container:release web -a twitder-ci-2
+  workflow:
+    version: 2
+    build_and_deploy:
+      jobs:
+        -build
+        -deploy:
+          requires:
+            -build
+            -deploy:
+              require:
+                -build
