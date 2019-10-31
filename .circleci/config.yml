@@ -38,6 +38,3 @@ jobs:
         - deploy:
           requires:
             - build
-            - deploy:
-              require:
-                -build
