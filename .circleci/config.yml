@@ -16,17 +16,17 @@ jobs:
     machine:
       image: ubuntu-1604:201903-01
     step:
-      -checkout
-      -run:
+      - checkout
+      - run:
         name: "Build Docker Image"
         command: docker build -t pknndev/twitder-ci .
-      -run:
+      - run:
         name: "Push to heroku registry container"
         command: |
           docker login -u _ -p $(heroku auth:token) registry.heroku.com
           docker tag pknndev/twitder-ci registry.heroku/twitder-ci-2/web
           docker push registry.heroku/twitder-ci-2/web
-      -run:
+      - run:
         name: "Release with heroku"
         command: |
           heroku container:release web -a twitder-ci-2
@@ -34,10 +34,10 @@ jobs:
     version: 2
     build_and_deploy:
       jobs:
-        -build
-        -deploy:
+        - build
+        - deploy:
           requires:
-            -build
-            -deploy:
+            - build
+            - deploy:
               require:
                 -build
